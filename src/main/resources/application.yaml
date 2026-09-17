@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: ApiTechnicalTest
+
+api-tv-maze-url: http://api.tvmaze.com
+
+logging:
+  level:
+    org.springframework.web.service.invoker: DEBUG
+    org.springframework.web.client: DEBUG
