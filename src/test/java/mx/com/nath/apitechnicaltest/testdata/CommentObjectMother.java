@@ -8,11 +8,7 @@ import mx.com.nath.apitechnicaltest.model.CommentDocument;
 public class CommentObjectMother {
 
     public static Comment getComment() {
-        final var comment = new Comment();
-        comment.setShowId(83479);
-        comment.setComment("This is a great show!");
-        comment.setRating(5);
-        return comment;
+        return new Comment("This is a great show!", 5);
     }
 
     public static CommentDocument getCommentDocument() {

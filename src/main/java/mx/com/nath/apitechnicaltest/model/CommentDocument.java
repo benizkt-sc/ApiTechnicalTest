@@ -2,6 +2,7 @@ package mx.com.nath.apitechnicaltest.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -14,6 +15,9 @@ import java.util.Objects;
 public class CommentDocument {
 
     @Id
+    @Field(name = "id")
+    private ObjectId id;
+
     @Field(name = "showId")
     private int showId;
 
@@ -47,4 +51,5 @@ public class CommentDocument {
                 this.rating
         );
     }
+
 }
