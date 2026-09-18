@@ -1,6 +1,10 @@
 spring:
   application:
     name: ApiTechnicalTest
+  mongodb:
+    uri: mongodb+srv://benizkt_db_user:7cTAByQZC6kZ32Wx@tecnicaltestdb.php0biq.mongodb.net
+    database: TecnicalTestDB
+
 
 api-tv-maze-url: http://api.tvmaze.com
 

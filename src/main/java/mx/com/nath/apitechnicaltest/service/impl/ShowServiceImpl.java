@@ -6,13 +6,13 @@ import mx.com.nath.apitechnicaltest.client.TvMazeClient;
 import mx.com.nath.apitechnicaltest.exception.ShowNotFoundException;
 import mx.com.nath.apitechnicaltest.mapper.ShowMapper;
 import mx.com.nath.apitechnicaltest.model.Show;
+import mx.com.nath.apitechnicaltest.repository.ShowRepository;
 import mx.com.nath.apitechnicaltest.service.ShowService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
 public class ShowServiceImpl implements ShowService {
 
     private final TvMazeClient tvMazeClient;
+
+    private final ShowRepository showRepository;
 
     @Override
     public List<Show> findShow(final String query) {
@@ -33,8 +35,19 @@ public class ShowServiceImpl implements ShowService {
     @Override
     public Show findShow(final int showId) {
         log.info("Executing call to find show with id: {}", showId);
+        return this.showRepository.findById(showId)
+                .map(ShowMapper.INSTANCE::toShow)
+                .orElseGet(() -> this.findAndSaveShowFromClient(showId));
+    }
+
+    private Show findAndSaveShowFromClient(final int showId) {
         try {
-            return ShowMapper.INSTANCE.toShow(this.tvMazeClient.findShow(showId));
+            log.info("Calling API (shows) for showId: {}", showId);
+            final var showSaved = this.showRepository
+                    .save(ShowMapper.INSTANCE
+                            .toShowDocument(this.tvMazeClient.findShow(showId)));
+            log.info("The Show with showId: {} is saved now!", showId);
+            return ShowMapper.INSTANCE.toShow(showSaved);
         } catch (final HttpClientErrorException.NotFound exception) {
             log.error("The show with id: {} can't be found, cause: {}", showId, exception.getMessage(), exception);
             throw new ShowNotFoundException("The show with id: " + showId + " wasn't found!");
