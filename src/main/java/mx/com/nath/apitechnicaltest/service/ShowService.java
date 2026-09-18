@@ -8,4 +8,6 @@ public interface ShowService {
 
     List<Show> findShow(String query);
 
+    Show findShow(int showId);
+
 }

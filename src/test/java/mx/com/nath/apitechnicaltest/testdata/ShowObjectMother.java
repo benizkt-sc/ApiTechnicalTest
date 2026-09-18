@@ -12,7 +12,7 @@ import java.util.Set;
 @UtilityClass
 public class ShowObjectMother {
 
-    public static List<Show> getListShowOneElement() {
+    public static Show getShow() {
         final var show = new Show();
         show.setId(83479);
         show.setName("Necronomico no Cosmic Horror Show");
@@ -29,7 +29,29 @@ public class ShowObjectMother {
                         within the VR world.\u003C/p\u003E
                         """
         );
-        return List.of(show);
+        return show;
+    }
+
+    public static ShowContent getShowContent() {
+        return new ShowContent(
+                83479,
+                "Necronomico no Cosmic Horror Show",
+                null,
+                """
+                        \u003Cp\u003EMiko Kurono, also known as Necronomico, 
+                        graduates from middle school and decides to pursue her dreams 
+                        of becoming a streamer. One day, as she's with her childhood friend, 
+                        Mayu Mayusaka, and her rival, Kanna Kagurasaka, she accepts an offer 
+                        to play a new VR game. The game gives Miko the opportunity to take 
+                        on mysterious challenges with other unique streamers she meets 
+                        within the VR world.\u003C/p\u003E
+                        """,
+                Set.of("Comedy", "Anime", "Science-Fiction")
+        );
+    }
+
+    public static List<Show> getListShowOneElement() {
+        return List.of(getShow());
     }
 
     public static List<ShowWrapperResponse> getListShowWrapperResponseOneElement() {

@@ -29,8 +29,8 @@ public class ShowController {
     }
 
     @GetMapping("/{showId}")
-    public ResponseEntity<Void> getShow(@PathVariable("showId") final int showId) {
-        return null;
+    public ResponseEntity<Show> getShow(@PathVariable("showId") final int showId) {
+        return ok(this.showService.findShow(showId));
     }
 
 }
